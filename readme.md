@@ -8,7 +8,7 @@
 self.play(ReplacementTransform(square, circle))  # transform the square into a circle
 self.play(circle.animate.set_fill(PINK, opacity=0.5))  # color the circle on screen
 ```
-5. 
+5. Available code styles should you use code manim object are: 'abap', 'algol_nu', 'algol', 'arduino', 'autumn', 'borland', 'bw', 'colorful', 'default', 'dracula', 'emacs', 'friendly_grayscale', 'friendly', 'fruity', 'github-dark', 'gruvbox-dark', 'gruvbox-light', 'igor', 'inkpot', 'lightbulb', 'lilypond', 'lovelace', 'manni', 'material', 'monokai', 'murphy', 'native', 'nord-darker', 'nord', 'one-dark', 'paraiso-dark', 'paraiso-light', 'pastie', 'perldoc', 'rainbow_dash', 'rrt', 'sas', 'solarized-dark', 'solarized-light', 'staroffice', 'stata-dark', 'stata-light', 'stata', 'tango', 'trac', 'vim', 'vs', 'xcode', and 'zenburn'
 
 # Usage:
 **Prerequesities to do:**

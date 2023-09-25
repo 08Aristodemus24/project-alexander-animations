@@ -53,12 +53,12 @@ class CircleAnimations(Scene):
 # 4
 class TextToVector(Scene):
     def construct(self):
-        quote = Text("“If more of us valued food and cheer and song above\nhoarded gold, it would be a merrier world.”\n― J.R.R. Tolkien", gradient=('#7734eb', '#eba234'))
+        quote = Text("“If more of us valued food and cheer and song above\nhoarded gold, it would be a merrier world.”\n― J.R.R. Tolkien", gradient=('#7734eb', '#eba234'), line_spacing=1.5)
         quote.scale(0.5)
         
         vector = DecimalMatrix([[0.93, -0.1, 0.65, 0.21, 1.23, 1.04]])
 
-        self.play(Create(quote))
+        self.play(Write(quote))
 
         # wait is like a delay you canset before another animation can play
         self.wait(1)
@@ -66,3 +66,18 @@ class TextToVector(Scene):
         self.play(FadeOut(vector))
         
 
+class HtmlCode(Scene):
+    def construct(self):
+        code = Code('./assets/markups/sample.html',
+            insert_line_no=True,
+            background='window',
+            background_stroke_color=WHITE,
+            background_stroke_width=1,
+            language='html',
+            font='Consolas',
+            font_size=12,
+            line_spacing=1,
+            style='dracula')
+        
+        self.play(Write(code))
+        self.wait(1)
