@@ -1,1 +1,2 @@
-ECHO is on.
+# ignore media since it will take too much space
+/media/
