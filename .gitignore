@@ -1,2 +1,3 @@
 # ignore media since it will take too much space
 /media/
+/assets/fonts/*

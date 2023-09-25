@@ -53,7 +53,7 @@ class CircleAnimations(Scene):
 # 4
 class TextToVector(Scene):
     def construct(self):
-        quote = Text("“If more of us valued food and cheer and song above\nhoarded gold, it would be a merrier world.”\n― J.R.R. Tolkien", gradient=('#7734eb', '#eba234'), line_spacing=1.5)
+        quote = Text("“If more of us valued food and cheer and song above\nhoarded gold, it would be a merrier world.”\n― J.R.R. Tolkien", gradient=('#7734eb', '#eba234'), line_spacing=1.5, color=WHITE)
         quote.scale(0.5)
         
         vector = DecimalMatrix([[0.93, -0.1, 0.65, 0.21, 1.23, 1.04]])
@@ -81,3 +81,35 @@ class HtmlCode(Scene):
         
         self.play(Write(code))
         self.wait(1)
+
+class MorphingHeaders(Scene):
+    def construct(self):
+        with register_font('./assets/fonts/static/NunitoSans_10pt-Regular.ttf'):
+            text_1 = Text("Deep Learning/Machine Learning", font="Nunito Sans 10pt")
+            text_1.scale(0.75)
+
+            text_2 = Text("Machine Learning with Graphs", font="Nunito Sans 10pt")
+            text_2.scale(0.75)
+
+            text_3 = Text("Natural Language Processing", font="Nunito Sans 10pt")
+            text_3.scale(0.75)
+
+            text_4 = Text("Data Visualization & Analysis", font="Nunito Sans 10pt")
+            text_4.scale(0.75)
+
+            text_5 = Text("Client & Server Side Web Development", font="Nunito Sans 10pt")
+            text_5.scale(0.75)
+
+            self.play(Write(text_1))
+            self.wait(1)
+            self.play(ReplacementTransform(text_1, text_2))
+            self.wait(1)
+            self.play(ReplacementTransform(text_2, text_3))
+            self.wait(1)
+            self.play(ReplacementTransform(text_3, text_4))
+            self.wait(1)
+            self.play(ReplacementTransform(text_4, text_5))
+            self.wait(1)
+            self.play(FadeOut(text_5))
+
+        

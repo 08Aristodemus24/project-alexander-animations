@@ -10,6 +10,9 @@ self.play(circle.animate.set_fill(PINK, opacity=0.5))  # color the circle on scr
 ```
 5. Available code styles should you use code manim object are: 'abap', 'algol_nu', 'algol', 'arduino', 'autumn', 'borland', 'bw', 'colorful', 'default', 'dracula', 'emacs', 'friendly_grayscale', 'friendly', 'fruity', 'github-dark', 'gruvbox-dark', 'gruvbox-light', 'igor', 'inkpot', 'lightbulb', 'lilypond', 'lovelace', 'manni', 'material', 'monokai', 'murphy', 'native', 'nord-darker', 'nord', 'one-dark', 'paraiso-dark', 'paraiso-light', 'pastie', 'perldoc', 'rainbow_dash', 'rrt', 'sas', 'solarized-dark', 'solarized-light', 'staroffice', 'stata-dark', 'stata-light', 'stata', 'tango', 'trac', 'vim', 'vs', 'xcode', and 'zenburn'
 
+6. to export manim animation to a 4k resolution video instead of just `qh` or `ql` we use now `qk` as the part of the flag `-pqk` in the command `manim -pqk tutorial.py MorphingHeaders`
+
+7. to export manim animation to a 4k resolution gif with transparent background instead of a video and black background respectively use `manim -pqk tutorial.py MorphingHeaders -t --format=gif`
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
