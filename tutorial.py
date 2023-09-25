@@ -1,4 +1,5 @@
 from manim import *
+from custom import NeuralNetworkMobject
 
 # 1
 class CreateCircle(Scene):
@@ -64,8 +65,8 @@ class TextToVector(Scene):
         self.wait(1)
         self.play(Transform(quote, vector))
         self.play(FadeOut(vector))
-        
 
+# 5
 class HtmlCode(Scene):
     def construct(self):
         code = Code('./assets/markups/sample.html',
@@ -77,28 +78,29 @@ class HtmlCode(Scene):
             font='Consolas',
             font_size=12,
             line_spacing=1,
-            style='dracula')
+            style='material')
         
-        self.play(Write(code))
+        self.play(Write(code, run_time=5))
         self.wait(1)
 
+# 6
 class MorphingHeaders(Scene):
     def construct(self):
         with register_font('./assets/fonts/static/NunitoSans_10pt-Regular.ttf'):
             text_1 = Text("Deep Learning/Machine Learning", font="Nunito Sans 10pt")
-            text_1.scale(0.75)
+            text_1.scale(0.5)
 
             text_2 = Text("Machine Learning with Graphs", font="Nunito Sans 10pt")
-            text_2.scale(0.75)
+            text_2.scale(0.5)
 
             text_3 = Text("Natural Language Processing", font="Nunito Sans 10pt")
-            text_3.scale(0.75)
+            text_3.scale(0.5)
 
             text_4 = Text("Data Visualization & Analysis", font="Nunito Sans 10pt")
-            text_4.scale(0.75)
+            text_4.scale(0.5)
 
             text_5 = Text("Client & Server Side Web Development", font="Nunito Sans 10pt")
-            text_5.scale(0.75)
+            text_5.scale(0.5)
 
             self.play(Write(text_1))
             self.wait(1)
@@ -112,4 +114,37 @@ class MorphingHeaders(Scene):
             self.wait(1)
             self.play(FadeOut(text_5))
 
-        
+# 7 
+class MorphingNeuralNetwork(Scene):
+    def construct(self):
+        nn = NeuralNetworkMobject([4, 3, 2, 2, 3, 4])
+        nn.label_inputs('X')
+        nn.label_hidden_layers('A[l]')
+        nn.label_outputs('h_{\\theta}(X)')
+        nn.scale(0.75)
+
+        self.play(Write(nn))
+
+
+# 8
+class ThreeDLinearRegression(ThreeDScene):
+    def construct(self):
+        axes = ThreeDAxes(
+            x_range=[-6, 6, 1],
+            y_range=[-6, 6, 1],
+            z_range=[-6, 6, 1],
+            x_length=8,
+            y_length=8,
+            z_length=8
+        )
+
+        self.add(axes)
+        self.wait()
+        # phi moves the camera along the y-axis or up and down
+        self.move_camera(phi=60 * DEGREES)
+        self.wait()
+
+        # theta moves the camera along the x-axis or left and right
+        self.move_camera(theta=-45 * DEGREES)
+        self.begin_ambient_camera_rotation(rate=PI / 10, about="theta")
+

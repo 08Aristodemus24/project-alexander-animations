@@ -12,7 +12,13 @@ self.play(circle.animate.set_fill(PINK, opacity=0.5))  # color the circle on scr
 
 6. to export manim animation to a 4k resolution video instead of just `qh` or `ql` we use now `qk` as the part of the flag `-pqk` in the command `manim -pqk tutorial.py MorphingHeaders`
 
-7. to export manim animation to a 4k resolution gif with transparent background instead of a video and black background respectively use `manim -pqk tutorial.py MorphingHeaders -t --format=gif`
+7. to export manim animation to a 4k resolution gif with transparent background instead of a video and black background respectively use `manim -pqk tutorial.py MorphingHeaders -t --format=gif`. Which has flags `-t` and `--format=gif` representing that we want only the manim objects to be visible with color and not with a background, and that we want the output file to in a `.gif` format respectively
+
+8. setting frame wid th and height without sacrificing quality canbe found here https://flyingframes.readthedocs.io/en/latest/ch5.html
+
+9. creating graphs can be found here: https://docs.manim.community/en/stable/reference/manim.mobject.graph.Graph.html
+
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
