@@ -2,3 +2,26 @@
 
 1. `manim -pql <scenes.py> <class name>` will create the animation given a "template" defined as our class
 2. `manim -pqh <scenes.py> <class name>` will create the animation in high quality given the `qh` part in the -pqh flag which means quality will be high of the outputted video
+3. `square.next_to(circle, RIGHT, buff=0.5)  # set the position` is like placing an element beside another element in html and then setting the squares margin to 0.5
+4. When you prepend `.animate` to any method call that modifies a Mobject, the method becomes an animation which can be played using `self.play`. Akin to how we used a class `Create()`, `FadeOut()`, or `Transform()` to define animations for our manim objects 
+```
+self.play(ReplacementTransform(square, circle))  # transform the square into a circle
+self.play(circle.animate.set_fill(PINK, opacity=0.5))  # color the circle on screen
+```
+5. 
+
+# Usage:
+**Prerequesities to do:**
+1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
+
+**To do:**
+1. clone repository with `git clone https://github.com/08Aristodemus24/project-alexander-animations.git`
+2. navigate to directory with manage.py file and requirements.txt file
+3. run command; `conda create -n <name of env e.g. project-alexander-animations> python=3.11.5`. Note that 3.11.5 must be the python version otherwise packages to be installed might not be compatible with a different python version e.g. manim, numpy, etc. 
+4. once environment is created activate it by running command `conda activate`
+5. then run `conda activate project-alexander-animations`
+6. check if pip is installed by running `conda list -e`
+7. if it is there then move to step 8, if not then install `pip` by typing `conda install pip`
+8. if `pip` exists or install is done run `pip install -r requirements.txt` in the directory you are currently in
+9. once done installing you can view animations by `manim -pql scenes.py <class name to see video output of>`. Note you can replace `<class name to see video output of>` to the any of the classes defined in scenes.py
+
