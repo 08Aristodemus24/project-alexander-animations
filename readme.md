@@ -18,6 +18,68 @@ self.play(circle.animate.set_fill(PINK, opacity=0.5))  # color the circle on scr
 
 9. creating graphs can be found here: https://docs.manim.community/en/stable/reference/manim.mobject.graph.Graph.html
 
+10. `manim -pqk tutorial.py MorphingHeaders -c GRAY` instead of specifying a flag of -t for a transparent gif or video we can use instead the -c flag which indicates the color we want for our background
+
+11. LEFT, RIGHT, DOWN, UP are macros consisting of coordinates for a 3 dimeensional cartesian plane, the x, y, and z axis, this is why when we use move_to we actually supply a list consiting of the x, y, and z coordinates, so that our mobject moves along the x-axis, along the y-axis, and the z-axis which may look left right, down up, and front and back.
+
+```
+self.play(g[1].animate.move_to([1, 1, 0]),
+    g[2].animate.move_to([-1, 1, 0]),
+    g[3].animate.move_to([1, -1, 0]),
+    g[4].animate.move_to([-1, -1, 0]))
+```
+
+```
+>>> from manim import *
+>>>
+>>> RIGHT
+array([1., 0., 0.])
+>>> LEFT
+array([-1.,  0.,  0.])
+>>>
+>>> # shifts one value to the right and one value to the left in the x-axis
+>>>
+>>> UP
+array([0., 1., 0.])
+>>> DOWN
+array([ 0., -1.,  0.])
+>>>
+>>> # shifts one value up and one value down in the y-axis
+```
+
+12. availabel layouts for graph mobject are: "circular": nx.layout.circular_layout, "kamada_kawai": nx.layout.kamada_kawai_layout,
+        "planar": nx.layout.planar_layout,
+        "random": nx.layout.random_layout,
+        "shell": nx.layout.shell_layout,
+        "spectral": nx.layout.spectral_layout,
+        "partite": nx.layout.multipartite_layout,
+        "tree": _tree_layout,
+        "spiral": nx.layout.spiral_layout,
+        "spring": nx.layout.spring_layout,
+
+13. any property for intance .set_color() of a mobject like Graph() or its node g[0] can be preprended by the .animate property e.g. g.animate.set_color() or g[0].animate.set_color()
+
+14. the args x_range, y_range, and z_range of ThreeDAxes object or plane indicates the ff. [x_min, x_max, x_step] values of the x-axis, [y_min, y_max, y_step] values of the y-axis, and [z_min, z_max, z_step] values of the z-axis respectively
+
+15. for using the degrees macro, since we cannot user degree values recall that in math we have to convert it first to an integer in order to make respective calculations 
+```
+>>> from manim import *
+>>> DEGREES
+0.017453292519943295
+>>> DEGREES
+0.017453292519943295
+>>> 90 * DEGREES
+1.5707963267948966
+>>> 180 * DEGREES
+3.141592653589793
+>>> 270 * DEGREES
+4.71238898038469
+>>> 360 * DEGREES
+6.283185307179586
+>>>
+```
+
+16. to plot lines in 3d space we use a parametric function and to plot surfaces or 2d shapes in 3d spaces we use a parametric surface function
 
 # Usage:
 **Prerequesities to do:**
