@@ -81,6 +81,12 @@ array([ 0., -1.,  0.])
 
 16. to plot lines in 3d space we use a parametric function and to plot surfaces or 2d shapes in 3d spaces we use a parametric surface function
 
+17. for 3d objects look here:
+* https://docs.manim.community/en/stable/reference/manim.mobject.three_d.three_dimensions.html
+* https://docs.manim.community/en/stable/reference/manim.mobject.three_d.polyhedra.html
+* https://docs.manim.community/en/stable/reference/manim.mobject.three_d.three_dimensions.Surface.html
+
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html

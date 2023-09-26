@@ -278,7 +278,6 @@ class ThreeDLinearRegression3(ThreeDScene):
         # self.begin_ambient_camera_rotation(90 * DEGREES, about="theta")
         self.begin_ambient_camera_rotation(rate=PI / 4.5, about="theta")
         
-
         # imperative that we wait and give a chance for camera to rotate
         # since as soon as wait stops then rotation stops
         self.wait(5)
