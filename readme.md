@@ -94,6 +94,8 @@ array([ 0., -1.,  0.])
 6.283185307179586
 ```
 
+20. increasing the layout_scale argument in a Graph mobject will increase the spacing between nodes and not make the graph too compressed and dense
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html

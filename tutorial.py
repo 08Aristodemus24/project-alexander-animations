@@ -487,3 +487,198 @@ class ThreeDLinearRegression7(ThreeDScene):
 
         self.stop_ambient_camera_rotation(about="theta")
         self.wait(1)
+
+class Graph4(Scene):
+    def construct(self):
+        edges = []
+        partitions = []
+        c = 0
+        layers = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+
+        for n_nodes in layers:
+            partitions.append(list(range(c + 1, c + n_nodes + 1)))
+            c += n_nodes
+
+        # create the edges of neural network
+        for i, v in enumerate(layers[1:]):
+                last = sum(layers[:i+1])
+                for j in range(v):
+                    for k in range(last - layers[i], last):
+                        edges.append((k + 1, j + last + 1))
+
+        # create the nodes of the neural network
+        vertices = np.arange(1, sum(layers) + 1)
+
+        # note graph nodes start from 1 in this case
+        graph = Graph(
+            vertices,
+            edges,
+            layout='partite',
+            partitions=partitions,
+            layout_scale=5,
+            vertex_config={'radius': 0.20},
+        )
+
+        square = Square()
+        
+
+        self.play(*[Create(square), square.animate.set_fill(PINK, opacity=0.5).set_stroke(PINK, opacity=1)])
+        self.play(ReplacementTransform(square, graph))
+        # move nodes up by 25%
+        self.play(graph[1].animate.move_to(graph[1].get_center() + UP * 0.25))
+        self.play(graph[1].animate.move_to(graph[1].get_center() + DOWN * 0.5))
+        self.play(graph[1].animate.move_to(graph[1].get_center() + UP * 0.5))
+        self.play(graph[1].animate.move_to(graph[1].get_center() + DOWN * 0.5))
+        self.play(graph[1].animate.move_to(graph[1].get_center() + UP * 0.5))
+        self.play(graph[1].animate.move_to(graph[1].get_center() + DOWN * 0.5))
+
+        self.wait(3)
+
+class Graph5(Scene):
+    def construct(self):
+        edges = []
+        partitions = []
+        c = 0
+        layers = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+
+        for n_nodes in layers:
+            partitions.append(list(range(c + 1, c + n_nodes + 1)))
+            c += n_nodes
+
+        # create the edges of neural network
+        for i, v in enumerate(layers[1:]):
+                last = sum(layers[:i+1])
+                for j in range(v):
+                    for k in range(last - layers[i], last):
+                        edges.append((k + 1, j + last + 1))
+
+        # create the nodes of the neural network
+        vertices = np.arange(1, sum(layers) + 1)
+
+        # note graph nodes start from 1 in this case
+        graph = Graph(
+            vertices,
+            edges,
+            layout='partite',
+            partitions=partitions,
+            layout_scale=5,
+            vertex_config={'radius': 0.20},
+        )
+
+        square = Square()
+        
+
+        self.play(*[Create(square), square.animate.set_fill(PINK, opacity=0.5).set_stroke(PINK, opacity=1)])
+        self.play(ReplacementTransform(square, graph))
+
+        # move nodes up by 25%
+        a1 = [graph[node].animate.move_to(graph[node].get_center() + UP * 0.25) for node in graph.vertices if node in [1, 2, 3, 4, 5]]
+        self.play(*a1)
+
+        a2 = [graph[node].animate.move_to(graph[node].get_center() + DOWN * 0.5) for node in graph.vertices if node in [1, 2, 3, 4, 5]]
+        self.play(*a2)
+
+        a3 = [graph[node].animate.move_to(graph[node].get_center() + UP * 0.5) for node in graph.vertices if node in [1, 2, 3, 4, 5]]
+        self.play(*a3)
+
+        self.play(*a2)
+        self.play(*a3)
+        self.play(*a2)
+        self.play(*a3)
+
+        self.wait(3)
+
+class Skills(ThreeDScene):
+    def construct(self):
+        # Natural language processing
+        quote = Text("“If more of us valued food and cheer and song above\nhoarded gold, it would be a merrier world.”\n― J.R.R. Tolkien", line_spacing=1.5, color=WHITE)
+        quote.scale(0.5)
+        
+        vector = DecimalMatrix([[0.93, -0.1, 0.65, 0.21, 1.23, 1.04]])
+
+        # Data Visualization and anlaysis
+        # load x, y, z coordinates for dot mobject using test data
+        # exclude all y values greater than 50
+        data = np.loadtxt('./data/test_data.txt', dtype=np.float32, delimiter='\t')
+        data = data[data[:, 2] <= 10, :]
+
+        # sample 50 data points only for optimizing run time
+        sample_indeces = np.random.choice(np.arange(data.shape[0]), size=50, replace=False)
+
+        # loaded dataset has not been normalized yet so normalize here
+        test_scaler = StandardScaler()
+        test_scaler.fit(data[sample_indeces, :])
+        X_tests_normed = test_scaler.transform(data[sample_indeces])
+
+        axes = ThreeDAxes(
+            x_range=[-10, 10, 1],
+            y_range=[-10, 10, 1],
+            z_range=[-10, 10, 1],
+            x_length=10, 
+            y_length=10,
+            z_length=10
+        )
+        
+        # create Dot mobject with 200 sampled data points
+        # then animate them each using Create
+        points = [Dot3D(point=example, radius=0.05, color=WHITE) for example in X_tests_normed]
+
+        # the function callback must return the x, y, z coordinates
+        line = ParametricFunction(lambda t: np.array([
+            1.2 * np.cos(t),
+            1.2 * np.sin(t),
+            t * 0.05
+        ]), t_range=[-5 * TAU, 5 * TAU])
+
+        cartesian_graph = VGroup()
+        cartesian_graph.add(axes.copy())
+        cartesian_graph.add(*points.copy())
+        cartesian_graph.add(line.copy())
+
+        # client and server side web development
+        code = Code('./assets/markups/sample.html',
+            insert_line_no=True,
+            background='window',
+            background_stroke_color=WHITE,
+            background_stroke_width=1,
+            language='html',
+            font='Consolas',
+            font_size=12,
+            line_spacing=1,
+            style='material')
+
+        # Natural language processing
+        self.play(Write(quote))
+
+        # wait is like a delay you canset before another animation can play
+        self.wait(0.5)
+        self.play(ReplacementTransform(quote, vector))
+        self.wait(1)
+
+        # Data analysis & visualization
+        # theta moves the camera along the x-axis or left and right
+        # phi moves the camera along the y-axis or up and down
+        # doing this moves camera leftward and upward simultaneously
+        # simultaneously replace the previous mobject with axes, 
+        # with the creation of points in the axes
+        self.move_camera(theta=-45 * DEGREES, phi=60 * DEGREES, added_anims=[ReplacementTransform(vector, axes)] + [Create(point) for point in points])
+
+        # note that dividing by a whole number increases the 
+        # rate our camera rotates
+        # in between begin and end ambient camera rotation is where we 
+        # place all our animations that will be simultaneous with the rotations
+        # self.begin_ambient_camera_rotation(90 * DEGREES, about="theta")
+        self.begin_ambient_camera_rotation(rate=PI / 4.5, about="theta")
+        self.play(Create(line))
+
+        # imperative that we wait and give a chance for camera to rotate
+        # since as soon as wait stops then rotation stops
+        self.wait(5)
+        self.move_camera(theta=45 * DEGREES, phi=0, added_anims=[Uncreate(axes), Uncreate(line)] + [Uncreate(point) for point in points])
+        self.stop_ambient_camera_rotation(about="theta")
+
+        # client & server side web development
+        self.play(Write(code, run_time=5))
+        self.wait(1)
+        
+        

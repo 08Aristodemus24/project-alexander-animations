@@ -117,7 +117,7 @@ class MultivariateLinearRegression:
                 print('current theta: {} \n'.format(self.theta))
                 print('current beta: {} \n'.format(self.beta))
                 print('current train cost: {} \n'.format(train_cost))
-                print('current cross cost: {} \n'.format(train_cost))
+                print('current cross cost: {} \n'.format(cross_cost))
 
             # save each data splits cost
             self.train_costs.append(train_cost)
@@ -160,10 +160,10 @@ class MultivariateLinearRegression:
         # error is 0 then prediction for new data and train data is 0
         return (self.linear(self.X_trains), self.Y_trains) if is_training_set is True else (self.linear(self.X_cross), self.Y_cross)
     
-    def compare(self):
-        Y_preds = self.predict(self.X_trains)
-        for i in range(self.train_num_instances):
-            print(Y_preds[i], self.Y_trains[i])
+    def compare(self, limit=20):
+        Y_preds, Y_trains = self.predict(is_training_set=True)
+        for i in range(limit):
+            print(Y_preds[i], Y_trains[i])
 
 
 
@@ -192,7 +192,7 @@ def plot_train_cross_costs(model):
 
 
 def view_model_metric_values(model):
-    Y_preds, Y_tests = model.predict(is_training_set=True)
+    Y_preds, Y_tests = model.predict(is_training_set=False)
     mse = mean_squared_error(Y_tests, Y_preds)
     rmse = math.sqrt(mse)
     r2 = r2_score(Y_tests, Y_preds)
