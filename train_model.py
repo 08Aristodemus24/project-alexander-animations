@@ -229,6 +229,7 @@ if __name__ == "__main__":
     model.plot_data()
 
     model.fit()
+    model.compare()
     
     view_model_metric_values(model)
     plot_train_cross_costs(model)
