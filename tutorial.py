@@ -674,7 +674,7 @@ class Skills(ThreeDScene):
         # imperative that we wait and give a chance for camera to rotate
         # since as soon as wait stops then rotation stops
         self.wait(5)
-        self.move_camera(theta=45 * DEGREES, phi=0, added_anims=[Uncreate(axes), Uncreate(line)] + [Uncreate(point) for point in points])
+        self.move_camera(theta=90, phi=0, added_anims=[Uncreate(axes), Uncreate(line)] + [Uncreate(point) for point in points])
         self.stop_ambient_camera_rotation(about="theta")
 
         # client & server side web development
