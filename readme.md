@@ -86,6 +86,13 @@ array([ 0., -1.,  0.])
 * https://docs.manim.community/en/stable/reference/manim.mobject.three_d.polyhedra.html
 * https://docs.manim.community/en/stable/reference/manim.mobject.three_d.three_dimensions.Surface.html
 
+18. so there is a difference in playing animations simultaneously using Animation objects and property animations of a Mobject e.g. `self.play(*[ReplacementTransform(square, axes), Create(point_a), Create(point_b), Create(point_c)])` is very different from `self.play(*[square.animate.set_fill(PINK, opacity=0.5), square.animate.set_stroke(PINK, opacity=1)])`, doing the latter will only just do the second animation, however we can chain animating mobject property animations since .`<mobject>.animate.<property>()` returns the same mobject animation builder object that we can use to chain another property we want to animate using dot notation.
+
+19. `TAU` is a constant like `DEGREES`, etc.
+```
+>>> TAU
+6.283185307179586
+```
 
 # Usage:
 **Prerequesities to do:**
@@ -102,3 +109,6 @@ array([ 0., -1.,  0.])
 8. if `pip` exists or install is done run `pip install -r requirements.txt` in the directory you are currently in
 9. once done installing you can view animations by `manim -pql scenes.py <class name to see video output of>`. Note you can replace `<class name to see video output of>` to the any of the classes defined in scenes.py
 
+# Model Building for animation
+**To do:**
+1. on a side note the reason why your liner model gives an R2 score of near 0 is because of this https://stackoverflow.com/questions/44218972/very-low-score-with-scikit-learn-linear-regression-for-obvious-pattern
