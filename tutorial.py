@@ -799,8 +799,6 @@ class MLAndDL3(ThreeDScene):
 
 class MLAndDL4(ThreeDScene):
     def construct(self):
-        layers_dims = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
-
         # Theta * X + Beta
         linear_func = MathTex(r"h_\Theta(X) = \sigma(\Theta X + \mathrm{B})")
         whole_op = MathTex(r"""
@@ -852,7 +850,12 @@ class MLAndDL4(ThreeDScene):
             layout='partite',
             partitions=partitions,
             layout_scale=5,
-            vertex_config={'radius': 0.2},
+            vertex_config={
+                'radius': 0.2
+            },
+            edge_config={
+                'buff': 1
+            }
         )
 
         # modify each nodes fill
@@ -862,6 +865,7 @@ class MLAndDL4(ThreeDScene):
 
         dot = Dot()
 
+        
         self.play(Write(linear_func))
         self.wait(1)
         self.play(ReplacementTransform(linear_func, whole_op))
