@@ -1,5 +1,5 @@
 from manim import *
-from custom import NeuralNetworkMobject
+from manim_ml.neural_network import *
 
 import networkx as nx
 from networkx.generators import gnp_random_graph
@@ -121,18 +121,7 @@ class MorphingHeaders(Scene):
             self.wait(1)
             self.play(FadeOut(text_5))
 
-# 7 
-class MorphingNeuralNetwork(Scene):
-    def construct(self):
-        nn = NeuralNetworkMobject([4, 3, 2, 2, 3, 4])
-        nn.label_inputs('X')
-        nn.label_hidden_layers('A[l]')
-        nn.label_outputs('h_{\\theta}(X)')
-        nn.scale(0.75)
-
-        self.play(Write(nn))
-
-# 8
+# 7
 class ThreeDLinearRegression(ThreeDScene):
     def construct(self):
         axes = ThreeDAxes(
@@ -722,14 +711,16 @@ class MLAndDL(Scene):
 
         self.play(*[Create(square), square.animate.set_fill(PINK, opacity=0.5).set_stroke(PINK, opacity=1)])
         self.play(ReplacementTransform(square, graph))
-        self.play(ApplyWave(graph))
         self.wait(3)
 
 class MLAndDL2(ThreeDScene):
     def construct(self):
-        linear_func = MathTex(r"\Theta X + B")
+        layers_dims = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+        # Theta * X + Beta
+        linear_func = MathTex(r"h_\Theta(X) = \sigma(\Theta X + \mathrm{B})")
         whole_op = MathTex(r"""
-            \begin{bmatrix}
+            h_\Theta(X) = 
+            \sigma(\begin{bmatrix}
             \Theta^{(0)}_{1, 1} & \Theta^{(0)}_{1, 2} & \Theta^{(0)}_{1, 3}\\
             \Theta^{(0)}_{2, 1} & \Theta^{(0)}_{2, 2} & \Theta^{(0)}_{2, 3}\\
             \Theta^{(0)}_{3, 1} & \Theta^{(0)}_{3, 2} & \Theta^{(0)}_{3, 3}\\
@@ -743,28 +734,139 @@ class MLAndDL2(ThreeDScene):
             \end{bmatrix}
             +
             \begin{bmatrix}
-            \beta^{(0)}_{1, 0} \\
-            \beta^{(0)}_{2, 0} \\
-            \beta^{(0)}_{3, 0} \\
-            \beta^{(0)}_{4, 0} \\
-            \end{bmatrix}
+            \mathrm{B}^{(0)}_{1, 0} \\
+            \mathrm{B}^{(0)}_{2, 0} \\
+            \mathrm{B}^{(0)}_{3, 0} \\
+            \mathrm{B}^{(0)}_{4, 0} \\
+            \end{bmatrix})
         """)
+
+        # this declaration is akin to sequential in tensorflow
+        nn = NeuralNetwork([FeedForwardLayer(num_nodes=layer_dim, rectangle_stroke_width=0) for layer_dim in layers_dims], layer_spacing=0.25)
         
         self.play(Write(linear_func))
         self.wait(1)
         self.play(linear_func.animate.become(whole_op))
+        self.play(FadeOut(whole_op))
+        self.wait(1)
+        self.play(Create(nn))
+        self.wait(1)
+        self.play(nn.make_forward_pass_animation(run_time=5))
         self.wait(1)
 
-        # \begin{bmatrix}
-        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
-        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
-        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
-        #     \end{bmatrix} \]
+class MLAndDL3(ThreeDScene):
+    def construct(self):
+        layers_dims = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
 
-        # \begin{bmatrix}
-        #     \beta^{(0)}_{1, 0} \\
-        #     \beta^{(0)}_{2, 0} \\
-        #     \beta^{(0)}_{3, 0} \\
-        #     \beta^{(0)}_{4, 0} \\
-        #     \end{bmatrix}
+        # Theta * X + Beta
+        linear_func = MathTex(r"h_\Theta(X) = \sigma(\Theta X + \mathrm{B})")
+        whole_op = MathTex(r"""
+            h_\Theta(X) = 
+            \sigma(\begin{bmatrix}
+            \Theta^{(0)}_{1, 1} & \Theta^{(0)}_{1, 2} & \Theta^{(0)}_{1, 3}\\
+            \Theta^{(0)}_{2, 1} & \Theta^{(0)}_{2, 2} & \Theta^{(0)}_{2, 3}\\
+            \Theta^{(0)}_{3, 1} & \Theta^{(0)}_{3, 2} & \Theta^{(0)}_{3, 3}\\
+            \Theta^{(0)}_{4, 1} & \Theta^{(0)}_{4, 2} & \Theta^{(0)}_{4, 3}\\
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+            X^{(0)}_1 & X^{(1)}_1 & \cdots & X^{(m - 1)}_1 \\
+            X^{(0)}_2 & X^{(1)}_2 & \cdots & X^{(m - 1)}_2 \\
+            X^{(0)}_3 & X^{(1)}_3 & \cdots & X^{(m - 1)}_3 \\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+            \mathrm{B}^{(0)}_{1, 0} \\
+            \mathrm{B}^{(0)}_{2, 0} \\
+            \mathrm{B}^{(0)}_{3, 0} \\
+            \mathrm{B}^{(0)}_{4, 0} \\
+            \end{bmatrix})
+        """)
 
+        # this declaration is akin to sequential in tensorflow
+        nn = NeuralNetwork([FeedForwardLayer(num_nodes=layer_dim, rectangle_stroke_width=0) for layer_dim in layers_dims], layer_spacing=0.25)
+        
+        self.play(Write(linear_func))
+        self.wait(1)
+        # self.play(ReplacementTransform(linear_func, whole_op))
+        # self.wait(1)
+        # self.play(FadeOut(whole_op))
+        # self.wait(1)
+        self.play(ReplacementTransform(linear_func, nn))
+        # self.wait(1)
+        # self.play(nn.make_forward_pass_animation(run_time=5))
+        # self.wait(1)
+
+class MLAndDL4(ThreeDScene):
+    def construct(self):
+        layers_dims = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+
+        # Theta * X + Beta
+        linear_func = MathTex(r"h_\Theta(X) = \sigma(\Theta X + \mathrm{B})")
+        whole_op = MathTex(r"""
+            h_\Theta(X) = 
+            \sigma(\begin{bmatrix}
+            \Theta^{(0)}_{1, 1} & \Theta^{(0)}_{1, 2} & \Theta^{(0)}_{1, 3}\\
+            \Theta^{(0)}_{2, 1} & \Theta^{(0)}_{2, 2} & \Theta^{(0)}_{2, 3}\\
+            \Theta^{(0)}_{3, 1} & \Theta^{(0)}_{3, 2} & \Theta^{(0)}_{3, 3}\\
+            \Theta^{(0)}_{4, 1} & \Theta^{(0)}_{4, 2} & \Theta^{(0)}_{4, 3}\\
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+            X^{(0)}_1 & X^{(1)}_1 & \cdots & X^{(m - 1)}_1 \\
+            X^{(0)}_2 & X^{(1)}_2 & \cdots & X^{(m - 1)}_2 \\
+            X^{(0)}_3 & X^{(1)}_3 & \cdots & X^{(m - 1)}_3 \\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+            \mathrm{B}^{(0)}_{1, 0} \\
+            \mathrm{B}^{(0)}_{2, 0} \\
+            \mathrm{B}^{(0)}_{3, 0} \\
+            \mathrm{B}^{(0)}_{4, 0} \\
+            \end{bmatrix})
+        """)
+
+        edges = []
+        partitions = []
+        c = 0
+        layers = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+
+        for n_nodes in layers:
+            partitions.append(list(range(c + 1, c + n_nodes + 1)))
+            c += n_nodes
+
+        # create the edges of neural network
+        for i, v in enumerate(layers[1:]):
+                last = sum(layers[:i+1])
+                for j in range(v):
+                    for k in range(last - layers[i], last):
+                        edges.append((k + 1, j + last + 1))
+
+        # create the nodes of the neural network
+        vertices = np.arange(1, sum(layers) + 1)
+
+        # note graph nodes start from 1 in this case
+        graph = Graph(
+            vertices,
+            edges,
+            layout='partite',
+            partitions=partitions,
+            layout_scale=5,
+            vertex_config={'radius': 0.2},
+        )
+
+        # modify each nodes fill
+        for node in graph.vertices:
+            graph[node].set_fill(WHITE, opacity=0.0)
+            graph[node].set_stroke('#1d58e0', opacity=1, width=5)
+
+        dot = Dot()
+
+        self.play(Write(linear_func))
+        self.wait(1)
+        self.play(ReplacementTransform(linear_func, whole_op))
+        self.wait(1)
+        self.play(ReplacementTransform(whole_op, dot))
+        self.wait(1)
+        self.play(ReplacementTransform(dot, graph))
+        self.wait(3)

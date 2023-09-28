@@ -148,6 +148,25 @@ In legacy TeX there is no such command, because a Tau has the same shape as a T.
 \Alpha \Beta \Epsilon \Zeta \Eta \Iota \Kappa \Mu \Nu \Omicron \Rho \Chi
 because the corresponding glyphs have the same shape as a Latin Letter.
 
+26. unlike using transformation animations like ReplacementTransform(), FadeTransform(), and Transform() which allows us to convert a mobject A into virutally mobject B that we both declared where we can now use mobject B to continue chaining the animations fi we want. However should we use a mobjects animate property and subsequently its animation methods like set_fill(), set_stroke(). the method .become() of a mobjects animation property does not turn the mobject a into mobject b, but rather mobject a is still mobject a but now with the characteristics or the "shape" so to speak of mobject b so if we wanted to perform animations on this newly "transformed" object we want to call animation liek FadeTransform(), Transform(), ReplacementTransform() etc, and pass in still mobject a, since it is still indeed mobject a just in the form of mobject b.
+```
+self.play(Write(linear_func))
+self.wait(1)
+self.play(linear_func.animate.become(whole_op))
+self.wait(1)
+self.play(FadeOut(linear_func))
+```
+Will work but...
+```
+self.play(Write(linear_func))
+self.wait(1)
+self.play(linear_func.animate.become(whole_op))
+self.wait(1)
+self.play(FadeOut(whole_op))
+```
+Will not
+
+27. video about making neural networks may be helpful: https://www.reddit.com/r/programming/comments/l8jwl5/i_created_a_video_about_neural_networks_that_is/
 
 # Usage:
 **Prerequesities to do:**
