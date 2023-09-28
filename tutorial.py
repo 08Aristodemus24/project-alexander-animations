@@ -588,6 +588,7 @@ class Graph5(Scene):
 
         self.wait(3)
 
+# promising
 class Skills(ThreeDScene):
     def construct(self):
         # Natural language processing
@@ -595,6 +596,8 @@ class Skills(ThreeDScene):
         quote.scale(0.5)
         
         vector = DecimalMatrix([[0.93, -0.1, 0.65, 0.21, 1.23, 1.04]])
+
+        dot = Dot3D()
 
         # Data Visualization and anlaysis
         # load x, y, z coordinates for dot mobject using test data
@@ -630,11 +633,6 @@ class Skills(ThreeDScene):
             t * 0.05
         ]), t_range=[-5 * TAU, 5 * TAU])
 
-        cartesian_graph = VGroup()
-        cartesian_graph.add(axes.copy())
-        cartesian_graph.add(*points.copy())
-        cartesian_graph.add(line.copy())
-
         # client and server side web development
         code = Code('./assets/markups/sample.html',
             insert_line_no=True,
@@ -646,6 +644,10 @@ class Skills(ThreeDScene):
             font_size=12,
             line_spacing=1,
             style='material')
+        
+        init_theta = self.camera.get_theta()
+        init_phi = self.camera.get_phi()
+        init_gamma = self.camera.get_gamma()
 
         # Natural language processing
         self.play(Write(quote))
@@ -661,7 +663,7 @@ class Skills(ThreeDScene):
         # doing this moves camera leftward and upward simultaneously
         # simultaneously replace the previous mobject with axes, 
         # with the creation of points in the axes
-        self.move_camera(theta=-45 * DEGREES, phi=60 * DEGREES, added_anims=[ReplacementTransform(vector, axes)] + [Create(point) for point in points])
+        self.move_camera(theta=-45 * DEGREES, phi=60 * DEGREES, added_anims=[ReplacementTransform(vector, dot)])
 
         # note that dividing by a whole number increases the 
         # rate our camera rotates
@@ -669,16 +671,100 @@ class Skills(ThreeDScene):
         # place all our animations that will be simultaneous with the rotations
         # self.begin_ambient_camera_rotation(90 * DEGREES, about="theta")
         self.begin_ambient_camera_rotation(rate=PI / 4.5, about="theta")
+        # self.play(*[ReplacementTransform(dot, axes)] + [Create(point) for point in points])
         self.play(Create(line))
 
         # imperative that we wait and give a chance for camera to rotate
         # since as soon as wait stops then rotation stops
         self.wait(5)
-        self.move_camera(theta=90, phi=0, added_anims=[Uncreate(axes), Uncreate(line)] + [Uncreate(point) for point in points])
+
+        # reset camera angle to initial values
+        self.move_camera(theta=init_theta, phi=init_phi, added_anims=[Uncreate(axes), Uncreate(line)] + [Uncreate(point) for point in points])
         self.stop_ambient_camera_rotation(about="theta")
 
         # client & server side web development
         self.play(Write(code, run_time=5))
         self.wait(1)
         
+class MLAndDL(Scene):
+    def construct(self):
+        edges = []
+        partitions = []
+        c = 0
+        layers = [5, 4, 4, 3, 2, 3, 4, 4, 5]  # the number of neurons in each layer
+
+        for n_nodes in layers:
+            partitions.append(list(range(c + 1, c + n_nodes + 1)))
+            c += n_nodes
+
+        # create the edges of neural network
+        for i, v in enumerate(layers[1:]):
+                last = sum(layers[:i+1])
+                for j in range(v):
+                    for k in range(last - layers[i], last):
+                        edges.append((k + 1, j + last + 1))
+
+        # create the nodes of the neural network
+        vertices = np.arange(1, sum(layers) + 1)
+
+        # note graph nodes start from 1 in this case
+        graph = Graph(
+            vertices,
+            edges,
+            layout='partite',
+            partitions=partitions,
+            layout_scale=5,
+            vertex_config={'radius': 0.20},
+        )
+
+        square = Square()
         
+
+        self.play(*[Create(square), square.animate.set_fill(PINK, opacity=0.5).set_stroke(PINK, opacity=1)])
+        self.play(ReplacementTransform(square, graph))
+        self.play(ApplyWave(graph))
+        self.wait(3)
+
+class MLAndDL2(ThreeDScene):
+    def construct(self):
+        linear_func = MathTex(r"\Theta X + B")
+        whole_op = MathTex(r"""
+            \begin{bmatrix}
+            \Theta^{(0)}_{1, 1} & \Theta^{(0)}_{1, 2} & \Theta^{(0)}_{1, 3}\\
+            \Theta^{(0)}_{2, 1} & \Theta^{(0)}_{2, 2} & \Theta^{(0)}_{2, 3}\\
+            \Theta^{(0)}_{3, 1} & \Theta^{(0)}_{3, 2} & \Theta^{(0)}_{3, 3}\\
+            \Theta^{(0)}_{4, 1} & \Theta^{(0)}_{4, 2} & \Theta^{(0)}_{4, 3}\\
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+            X^{(0)}_1 & X^{(1)}_1 & \cdots & X^{(m - 1)}_1 \\
+            X^{(0)}_2 & X^{(1)}_2 & \cdots & X^{(m - 1)}_2 \\
+            X^{(0)}_3 & X^{(1)}_3 & \cdots & X^{(m - 1)}_3 \\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+            \beta^{(0)}_{1, 0} \\
+            \beta^{(0)}_{2, 0} \\
+            \beta^{(0)}_{3, 0} \\
+            \beta^{(0)}_{4, 0} \\
+            \end{bmatrix}
+        """)
+        
+        self.play(Write(linear_func))
+        self.wait(1)
+        self.play(linear_func.animate.become(whole_op))
+        self.wait(1)
+
+        # \begin{bmatrix}
+        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
+        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
+        #     \X^{(0)}_1 & \X^{(1)}_1 & \cdots & \X^{(0)}_1 \\
+        #     \end{bmatrix} \]
+
+        # \begin{bmatrix}
+        #     \beta^{(0)}_{1, 0} \\
+        #     \beta^{(0)}_{2, 0} \\
+        #     \beta^{(0)}_{3, 0} \\
+        #     \beta^{(0)}_{4, 0} \\
+        #     \end{bmatrix}
+

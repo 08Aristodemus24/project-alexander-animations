@@ -47,6 +47,8 @@ array([ 0., -1.,  0.])
 >>> # shifts one value up and one value down in the y-axis
 ```
 
+But note that these right, left, up, down values are still
+
 12. availabel layouts for graph mobject are: "circular": nx.layout.circular_layout, "kamada_kawai": nx.layout.kamada_kawai_layout,
         "planar": nx.layout.planar_layout,
         "random": nx.layout.random_layout,
@@ -96,6 +98,57 @@ array([ 0., -1.,  0.])
 
 20. increasing the layout_scale argument in a Graph mobject will increase the spacing between nodes and not make the graph too compressed and dense
 
+21. when using sikmultaenous animations you can do this 
+```
+>>> y = lambda *x: print(x)
+>>> y(*([1, 2] + [2]))
+(1, 2, 2)
+```
+
+which translates in manim to...
+
+```
+self.play(*[ReplacementTransform(dot, axes)] + [Create(point) for point in points])
+```
+
+22. initially `phi` and `theta` or left & right and up and down respectively had `0.0` and `-1.5707963267948966` but after setting to `60 * degrees` and `-45 * degrees` respectively the values are now `1.0471975511965976` and `-0.7853981633974483`
+
+and because camera rotations begins then waits for 5 seconds theta excluding phi since rotation is only set to rotate on the theta "axis" so to speak theta after 5 second camera rotation is now `3.310307814615915`. So we need to reset theta angle such that it is `-1.5707963267948966` again and phi is `0.0`, to do this we just have to pass the initial `self.camera.get_theta()` and the initial `self.camera.get_phi()` we had before we even called `self.move_camera()` to `self.move_camera()` again to reverse all rotations
+
+23. note it is imperative that latex symbols have spaces in between in each caharacter unless a symbol requires other parts like subscripts and superscripts in that case the characters preceding or succeeding these superscripts or subscripts must not have spaces between other parts of the whole latex symbol e.g. below is the correct way
+```
+linear_func = MathTex(r"\Theta X + B")
+        self.add(linear_func)
+```
+or
+```
+t = MathTex(r"\int_a^b f'(x) dx = f(b)- f(a)")
+        self.add(t)
+```
+and the wrong way is 
+```
+linear_func = MathTex(r"\ThetaX+B")
+        self.add(linear_func)
+```
+
+24. Matrices
+```
+>>> MathTex(r"\begin{bmatrix} 0 & \tau_{1, 2} \\ \end{bmatrix}")
+MathTex('\\begin{bmatrix} 0 & \\tau_{1, 2} \\\\ \\end{bmatrix}')
+
+>>> MathTex(r"\begin{bmatrix} \beta^{(0)}_{1, 0} \\ \end{bmatrix}")
+MathTex('\\begin{bmatrix} \\beta^{(0)}_{1, 0} \\\\ \\end{bmatrix}')
+>>> exit()
+```
+
+25. Note: some greek letters may not be available. For instance the command \Tau is defined when unicode-math is used, because it must refer to the Greek letter.
+
+In legacy TeX there is no such command, because a Tau has the same shape as a T. The same for
+
+\Alpha \Beta \Epsilon \Zeta \Eta \Iota \Kappa \Mu \Nu \Omicron \Rho \Chi
+because the corresponding glyphs have the same shape as a Latin Letter.
+
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
@@ -110,6 +163,7 @@ array([ 0., -1.,  0.])
 7. if it is there then move to step 8, if not then install `pip` by typing `conda install pip`
 8. if `pip` exists or install is done run `pip install -r requirements.txt` in the directory you are currently in
 9. once done installing you can view animations by `manim -pql scenes.py <class name to see video output of>`. Note you can replace `<class name to see video output of>` to the any of the classes defined in scenes.py
+10. note that in installing miketex latex commands will not be available yet so add the latex executable files path to our path environment variable. This may be `C:\Program Files\MiKTeX\miktex\bin\x64` but it will vary across systems
 
 # Model Building for animation
 **To do:**
