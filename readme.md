@@ -218,6 +218,41 @@ Another article that details parametric functions can be found here: https://www
 
 Given that we now have a basic understanding of parametric functions we can just look up aesthetically pleasing parametric functions in geogebra or create them ourselves using symbolab, desmos, etc. and apply to manim by using the `ParametricFunction()` class where we pass in a callback function, returning $x$, $y$ or even $x$, $y$, $z$ coordinates of our parametric function (note a 3D parametric function has the same principle where instead of $x$ and $y$ only having functions that take $t$ as input we have also a funciotn $z$ that takes our $t$ input) given $t$. For instance $x = cos(t)$ and $y = sin(t) * cos(t)$ with input $t$'s ranging from -5 to -5 would result in an infinity graph
 
+\cdots
+
+    \sigma(\begin{bmatrix}
+        \Theta^{(0)}_{1, 1} & \Theta^{(0)}_{1, 2} & \cdots & \Theta^{(0)}_{1, n^{(0)}} \\
+        \Theta^{(0)}_{2, 1} & \Theta^{(0)}_{2, 2} & \cdots & \Theta^{(0)}_{2, n^{(0)}} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \Theta^{(0)}_{n^{(0)}, 1} & \Theta^{(0)}_{n^{(0)}, 2} & \cdots & \Theta^{(0)}_{n^{(L - 1)}, n^{(0)}} \\
+        \end{bmatrix}
+        
+        \cdot
+
+        \begin{bmatrix}
+        X^{(0)}_1 & X^{(1)}_1 & \cdots & X^{(m - 1)}_1 \\
+        X^{(0)}_2 & X^{(1)}_2 & \cdots & X^{(m - 1)}_2 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        X^{(0)}_n & X^{(1)}_n & \cdots & X^{(m - 1)}_n \\
+        \end{bmatrix}
+
+        +
+
+        \begin{bmatrix}
+        \mathrm{B}^{(0)}_{1, 0} \\
+        \mathrm{B}^{(0)}_{2, 0} \\
+        \vdots \\
+        \mathrm{B}^{(0)}_{n^{(1)}, 0} \\
+    \end{bmatrix})
+
+    +
+
+    \begin{bmatrix}
+    \mathrm{B}^{(L - 2)}_{1, 0} \\
+    \mathrm{B}^{(L - 2)}_{2, 0} \\
+    \vdots \\
+    \mathrm{B}^{(L - 2)}_{n^{(L - 1)}, 0} \\
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
