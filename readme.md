@@ -168,6 +168,54 @@ Will not
 
 27. video about making neural networks may be helpful: https://www.reddit.com/r/programming/comments/l8jwl5/i_created_a_video_about_neural_networks_that_is/
 
+28. so the solution in plotting parametric functions is to use geogebra examples to see what aesthetically pleasing function you want to draw
+
+moreover to explain what a parametric function is, https://tutorial.math.lamar.edu/classes/calcii/parametriceqn.aspx details it as follows. There are also a great many curves out there that we can’t even write down as a single equation in terms of only x and y. So, to deal with some of these problems we introduce parametric equations. Instead of defining $y$ in terms of $x(y = f(x))$ or $x$ in terms of $y(x = h(y))$ we define both $x$ and $y$ in terms of a third variable called a parameter as follows: $x = f(t)$ and $y = g(t)$, which basically instead of us only giving as input the domain $x$ to obtain range $y$ we input $t$ to get both 2D coordinates $x$ and $y$
+
+e.g.
+$x = t2 + t$
+$y = 2t − 1$
+At this point our only option for sketching a parametric curve is to pick values of $t$, and then plug them into the parametric equations and then plot the points. So, let’s plug in some 
+$t$’s.
+<table>
+        <thead>
+                <tr>
+                        <th>t</th>
+                        <th>x</th>
+                        <th>y</th>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td>-2</td>
+                        <td>2</td>
+                        <td>5</td>
+                </tr>
+                <tr>
+                        <td>-1</td>
+                        <td>0</td>
+                        <td>-3</td>
+                </tr>
+                <tr>
+                        <td>-1/2</td>
+                        <td>-1/4</td>
+                        <td>-2</td>
+                </tr>
+                <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-1</td>
+                </tr>
+                <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                </tr>
+        </tbody>
+</table>
+
+Given that we now have a basic understanding of parametric functions we can just look up aesthetically pleasing parametric functions in geogebra or create them ourselves using symbolab, desmos, etc. and apply to manim by using the `ParametricFunction()` class where we pass in a callback function, returning $x$, $y$ or even $x$, $y$, $z$ coordinates of our parametric function (note a 3D parametric function has the same principle where instead of $x$ and $y$ only having functions that take $t$ as input we have also a funciotn $z$ that takes our $t$ input) given $t$.
+
 # Usage:
 **Prerequesities to do:**
 1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
