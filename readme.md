@@ -214,6 +214,8 @@ $t$’s.
         </tbody>
 </table>
 
+Another article that details parametric functions can be found here: https://www.geneseo.edu/~aguilar/public/notes/Calculus-2-HTML/ch4-parametric-equations-and-polar-coordinates.html
+
 Given that we now have a basic understanding of parametric functions we can just look up aesthetically pleasing parametric functions in geogebra or create them ourselves using symbolab, desmos, etc. and apply to manim by using the `ParametricFunction()` class where we pass in a callback function, returning $x$, $y$ or even $x$, $y$, $z$ coordinates of our parametric function (note a 3D parametric function has the same principle where instead of $x$ and $y$ only having functions that take $t$ as input we have also a funciotn $z$ that takes our $t$ input) given $t$. For instance $x = cos(t)$ and $y = sin(t) * cos(t)$ with input $t$'s ranging from -10 to -3.8 would result in an infinity graph
 
 # Usage:
