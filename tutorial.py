@@ -874,3 +874,41 @@ class MLAndDL4(ThreeDScene):
         self.wait(1)
         self.play(ReplacementTransform(dot, graph))
         self.wait(3)
+
+class SkillsHeadersFinal(Scene):
+    def construct(self):
+        with register_font('./assets/fonts/static/NunitoSans_10pt-Regular.ttf'):
+            text_1 = Text("Deep Learning/Machine Learning", font="Nunito Sans 10pt")
+            text_1.scale(1.5)
+
+            text_2 = Text("Natural Language Processing", font="Nunito Sans 10pt")
+            text_2.scale(1.5)
+
+            text_3 = Text("Data Visualization & Analysis", font="Nunito Sans 10pt")
+            text_3.scale(1.5)
+
+            text_4 = Text("Client & Server Side Web Development", font="Nunito Sans 10pt")
+            text_4.scale(1.5)
+
+            # needs to be in sync with transforming math objects
+            self.play(Write(text_1))
+            self.wait(1)
+            self.play(*[FadeTransformPieces(text_1, text_2), FadeOut(text_1)])
+            # self.play(*[FadeTransformPieces(text_1, text_2)])
+            self.wait(1)
+            
+            
+            # self.play(FadeOut(text_2))
+            
+
+            # self.play(Write(text_1))
+            # self.wait(1)
+            # self.play(*[FadeIn(text_2), FadeOut(text_1)])
+            # self.wait(1)
+
+
+            self.play(*[FadeTransformPieces(text_2, text_3), FadeOut(text_2)])
+            self.wait(1)
+            self.play(*[FadeTransformPieces(text_3, text_4), FadeOut(text_3)])
+            self.wait(1)
+            self.play(FadeOut(text_4))
