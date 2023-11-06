@@ -1,3 +1,14 @@
 # ignore media since it will take too much space
-/media/
-/assets/fonts/*
+/manim-animations/media/
+/manim-animations/assets/fonts/*
+
+/three-animations/.DS_Store
+/three-animations/node_modules
+/three-animations//build
+/three-animations/.svelte-kit
+/three-animations/package
+/three-animations/.env
+/three-animations/.env.*
+/three-animations/!.env.example
+/three-animations/vite.config.js.timestamp-*
+/three-animations/vite.config.ts.timestamp-*
