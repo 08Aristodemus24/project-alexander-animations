@@ -222,7 +222,7 @@ Given that we now have a basic understanding of parametric functions we can just
 
 # Usage:
 **Prerequesities to do:**
-1. make sure you have `ffmpeg` and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
+1. make sure you have `ffmpeg` through `choco install ffmpeg` (note you must have node to have choco package manager installed) and `python` installed, and optionally `miketex`. ManimCE details the installation in this link: https://docs.manim.community/en/stable/installation.html
 
 **To do:**
 1. clone repository with `git clone https://github.com/08Aristodemus24/project-alexander-animations.git`
