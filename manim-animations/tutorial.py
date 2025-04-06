@@ -887,7 +887,7 @@ class SkillsFinal(ThreeDScene):
             text_2.scale(1)
             text_2.to_edge(UP, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)
 
-            text_3 = Text("Data Visualization & Analysis", font="Nunito Sans 10pt")
+            text_3 = Text("Data Analysis & Visualization", font="Nunito Sans 10pt")
             text_3.scale(1)
             text_3.set_opacity(0)
             text_3.to_edge(UP, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)
@@ -1259,6 +1259,7 @@ class SkillsFinal(ThreeDScene):
         
 
         # client & server side web development
-        self.play(*[Write(code), FadeIn(text_4)], run_time=5)
+        self.play(FadeIn(text_5))
+        self.play(Write(code), run_time=5)
         self.wait(0.5)
         self.play(*[FadeOut(code), FadeOut(text_4)])
